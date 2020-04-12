@@ -13,4 +13,17 @@
 
 1. Visual Studio Code -> View -> Command Palette -> Flutter: New Project
 2. Set the name of project as `expense_tracker`
-3. Hit the debug button in Visual Studio Code to see your default app on screen
+3. Chosse the main.dart file and hit the debug button in Visual Studio Code to see your default app on screen
+4. Optionally open the Dart dev tools to explore ( Similar to Chrome dev tools )
+
+# Knowing the Folder Structure
+
+1. .dart_tool directory, which is new in Dart 2, is used by pub and other tools
+2. .idea -> all the project specific settings for project are stored under the .idea folder
+3. android -> files and configurations specific for android
+4. build -> build versions reside on this folder
+5. ios -> files and configurations specific to ios
+6. lib -> is our play ground, or where the app source code resides
+6. test -> where the test related code is placed
+7. pubspec.yaml -> same use as package.json file to specify dependencies and some configurations
+
