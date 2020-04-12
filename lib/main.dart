@@ -24,14 +24,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,20 +34,45 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            RaisedButton(
+              onPressed: () => {
+                setState(() {}),
+              },
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5)),
+              color: Colors.grey[100],
+              child: Text(
+                "<",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: 'FonsecaRounded',
+                    fontSize: 20),
+              ),
+            ),
+            Text(
+              "dd-MM-yyyy",
+              textAlign: TextAlign.center,
+            ),
+            RaisedButton(
+              onPressed: () => {
+                setState(() {}),
+              },
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5)),
+              color: Colors.grey[100],
+              child: Text(
+                ">",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: 'FonsecaRounded',
+                    fontSize: 20),
+              ),
+            ),
             Text(
               'You have pushed the button this many times:',
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
       ),
     );
   }

@@ -85,3 +85,134 @@ class MyHomePage extends StatefulWidget {
 - The class also accepts two optional parameters Key key and String title
     - The Key is used to track the state from its creator ( framework handels it)
     - title is passed from class initialization
+
+```dart
+class _MyHomePageState extends State<MyHomePage> {
+  int _counter = 0;
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'You have pushed the button this many times:',
+            ),
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.display1,
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+}
+``` 
+- The state extends State class and links to MyHomePage
+- Has a state property called _counter initialized to 0
+- Has a method that changes the state data by calling setState method
+- By extending State class, you are forced to implement the build method
+    - The build method will be auto called by framework when the widget for this state is loaded
+- The build method returs a Scaffold widget
+    - Scaffold is used under MaterialApp, it gives you many basic functionalities, like AppBar, BottomNavigationBar, Drawer, FloatingActionButton etc.
+    - appBar is the top bar of the application
+    - body is the main area of the application
+    - floatingActionButton is a button shown at the bottom of the screen
+- Body contains 2 Text Widgets, enclosed in Column Widget which is enclosed in Center widget
+- https://flutter.dev/docs/development/ui/widgets for more reference
+
+## How the app works
+
+- when user clicks the floating action button the state is updated by incrementing the counter
+- The UI is updated with the new value
+
+
+## Add New functionality
+
+1. Delete floatingActionButton, _incrementCounter, _counter, and Text widget showing the counter
+2. See the hot reload in action
+
+### Add a new button for left arrow
+
+```dart
+RaisedButton(
+    onPressed: () => {
+        setState(() {
+        
+        }),
+    },
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5)),
+    color: Colors.grey[100],
+    child: Text(
+        "<",
+        style: TextStyle(
+            color: Colors.black,
+            fontFamily: 'FonsecaRounded',
+            fontSize: 20),
+    ),
+)
+``` 
+- Add this button inside Column widget
+
+### Add a Text widget next to button
+
+```dart
+Text(
+    "dd-MM-yyyy",
+    textAlign: TextAlign.center,
+)
+```
+
+
+### Add a new button for right arrow
+
+```dart
+RaisedButton(
+    onPressed: () => {
+        setState(() {
+        
+        }),
+    },
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5)),
+    color: Colors.grey[100],
+    child: Text(
+        ">",
+        style: TextStyle(
+            color: Colors.black,
+            fontFamily: 'FonsecaRounded',
+            fontSize: 20),
+    ),
+)
+``` 
+- Add this button inside Column widget
+
+
+
+
+
+```dart
+void main() => runApp(MyApp());
+``` 
+
+```dart
+void main() => runApp(MyApp());
+``` 
