@@ -385,6 +385,7 @@ Expanded(
 
 - Wrap the add expense section with column
 - Add a container with height 30
+- Now add the below code to show a dummy listing
 ```dart
 Expanded(
     child: SizedBox(
