@@ -27,7 +27,10 @@
 6. test -> where the test related code is placed
 7. pubspec.yaml -> same use as package.json file to specify dependencies and some configurations
 
-# Action to do
+# Code and Demo
+
+1. NOTE : In Flutter the casing is very sensitive, like starting from folder naming to method and class namings, should start with small letter
+2. NOTE : However dont worry, visual studio will guide you.
 
 ## Clean up the default code
 
@@ -55,10 +58,30 @@ class MyApp extends StatelessWidget {
   }
 }
 ``` 
-- A class extends Stateless Widget
+- A class extends StatelessWidget
     - Stateless widgets are that that dont hold any data
     - It forces to implement build method
-- The class returns MaterialApp widget
+    - Flutter automatically calls the build method when this widget is loaded
+- The build method returns MaterialApp widget
     - MaterialApp is the starting point of your app, it tells Flutter that you are going to use Material components and follow material design in your app.
     - set properties like the Theme and title
     - most importantly, the home, which bootstraps our App
+
+```dart
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key key, this.title}) : super(key: key);
+  final String title;
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+``` 
+- A Class extends StatefullWidget
+    - The widget holds data
+    - It forces to implement the createState method
+    - Flutter automatically calls the createState method when this widget is loaded
+- The createState method initializes a new state called _MyHomePageState();
+    - files starting with _ means they are private and accessible to only this file
+- The class also accepts two optional parameters Key key and String title
+    - The Key is used to track the state from its creator ( framework handels it)
+    - title is passed from class initialization
