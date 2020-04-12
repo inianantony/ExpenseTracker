@@ -24,6 +24,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  String category = 'Grocery';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,8 +70,27 @@ class _MyHomePageState extends State<MyHomePage> {
                     fontSize: 20),
               ),
             ),
-            Text(
-              'You have pushed the button this many times:',
+            DropdownButton<String>(
+              isExpanded: true,
+              value: category,
+              icon: Icon(Icons.arrow_downward),
+              iconSize: 30,
+              elevation: 16,
+              style: TextStyle(color: Colors.black),
+              underline: Container(
+                height: 2,
+                color: Colors.grey,
+              ),
+              onChanged: (String newValue) {
+                setState(() {});
+              },
+              items: <String>['Grocery', 'Electronics', 'Fashion', 'Travel']
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
             ),
           ],
         ),

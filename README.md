@@ -168,9 +168,12 @@ RaisedButton(
             fontFamily: 'FonsecaRounded',
             fontSize: 20),
     ),
-)
+),
 ``` 
 - Add this button inside Column widget
+
+### Delete the default text widget for `You have pushed the button this many times:`
+
 
 ### Add a Text widget next to button
 
@@ -178,7 +181,7 @@ RaisedButton(
 Text(
     "dd-MM-yyyy",
     textAlign: TextAlign.center,
-)
+),
 ```
 
 
@@ -201,9 +204,47 @@ RaisedButton(
             fontFamily: 'FonsecaRounded',
             fontSize: 20),
     ),
-)
+),
 ``` 
 - Add this button inside Column widget
+
+### Add a dropdown with some default shopping categories
+
+```dart
+String category = 'Grocery';
+```
+- Add a property category inside `_MyHomePageState` 
+
+```dart
+DropdownButton<String>(
+    isExpanded: true,
+    value: category,
+    icon: Icon(Icons.arrow_downward),
+    iconSize: 30,
+    elevation: 16,
+    style: TextStyle(color: Colors.black),
+    underline: Container(
+    height: 2,
+    color: Colors.grey,
+    ),
+    onChanged: (String newValue) {
+    setState(() {
+        
+    });
+    },
+    items: <String>[
+    'Grocery',
+    'Electronics',
+    'Fashion',
+    'Travel'
+    ].map<DropdownMenuItem<String>>((String value) {
+    return DropdownMenuItem<String>(
+        value: value,
+        child: Text(value),
+    );
+    }).toList(),
+),
+```
 
 
 
