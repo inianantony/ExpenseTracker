@@ -29,7 +29,7 @@
 
 # Code and Demo
 
-1. NOTE : In Flutter the casing is very sensitive, like starting from folder naming to method and class namings, should start with small letter
+1. NOTE : In Flutter the casing is very sensitive, like starting from folder naming to method namings, should start with small letter
 2. NOTE : However dont worry, visual studio will guide you.
 
 ## Clean up the default code
@@ -42,7 +42,7 @@
 ```dart
 void main() => runApp(MyApp());
 ``` 
-- Entry point is the main method, and its call the runApp method and passes the class that holds the application
+- Entry point is the main method, and its call the runApp method and passes the widget class that holds the application
 
 ```dart
 class MyApp extends StatelessWidget {
