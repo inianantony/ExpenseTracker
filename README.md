@@ -1,3 +1,16 @@
+# Agenda
+- Installation & Tools​
+- An App to enter expense​
+    - Button ​
+    - Text​
+    - Image​
+    - ListView​
+    - Column​
+    - GestureDetector​
+    - BottomNavBar​
+    - StateLess & StateFull​
+    - A Simple Chart
+
 # Prerequisites
 
 1. Download Flutter and extract to the specific location
