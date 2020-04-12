@@ -143,6 +143,9 @@ class _MyHomePageState extends State<MyHomePage> {
 - when user clicks the floating action button the state is updated by incrementing the counter
 - The UI is updated with the new value
 
+## What we are going to Build
+
+![alt text](https://github.com/inianantony/expense_tracker/blob/master/readme_images/home.png) ![alt text](https://github.com/inianantony/expense_tracker/blob/master/readme_images/chart.png)
 
 ## Add New functionality
 
