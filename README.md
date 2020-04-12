@@ -36,6 +36,6 @@
 
 ## Default code explanation
 
-1. `void main() => runApp(MyApp());`
-    a. Entry point is the main method, and its call the runApp method and passes the class that holds the application
-2. 
+- `void main() => runApp(MyApp());`
+    - Entry point is the main method, and its call the runApp method and passes the class that holds the application
+-  
