@@ -27,3 +27,11 @@
 6. test -> where the test related code is placed
 7. pubspec.yaml -> same use as package.json file to specify dependencies and some configurations
 
+# Action to do
+
+## Clean up the default code
+
+1. Open the main.dart file under lib folder
+2. Delete all the comments
+
+## Default code explanation
