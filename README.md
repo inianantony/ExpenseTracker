@@ -706,3 +706,12 @@ import 'package:pie_chart/pie_chart.dart';
 ```
 
 - Now make this function as the 2nd child page by adding to `_pages` list
+
+# Relation to Introduction​
+
+- Dart Language​
+- Widgets​
+- WidgetTree​
+- VisualStudio Code​
+- AVD​
+- Hot Reload
