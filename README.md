@@ -16,9 +16,6 @@
 1. Download Flutter and extract to the specific location
 ![alt text](https://github.com/inianantony/expense_tracker/blob/master/readme_images/fultter_path.png)
 2. Install Dart and Flutter extension in Visual Studio Code
-Solarized dark             |  Solarized Ocean
-:-------------------------:|:-------------------------:
-![](https://...Dark.png)  |  ![](https://...Ocean.png)
 
 Dart Ext             |  Flutter Ext
 :-------------------------:|:-------------------------:
