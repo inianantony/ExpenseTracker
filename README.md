@@ -487,3 +487,85 @@ amountController.text = "";
 FocusScope.of(context).requestFocus(new FocusNode());
 ```
 
+### Update the `getListingSection` to show data based on the stored state
+
+```dart
+
+  Widget getListingSection() {
+    var expenses = List<Widget>();
+    var icons = new Map();
+    icons.putIfAbsent('Grocery', () => Icons.shopping_cart);
+    icons.putIfAbsent('Electronics', () => Icons.laptop);
+    icons.putIfAbsent('Fashion', () => Icons.all_inclusive);
+    icons.putIfAbsent('Travel', () => Icons.beach_access);
+    for (var value in expenseList) {
+      expenses.add(
+        Container(
+          padding: EdgeInsets.only(top: 10),
+          child: Card(
+            child: Container(
+                padding: EdgeInsets.all(20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          DateFormat("dd-MM-yyyy").format(value.date),
+                          style: Theme.of(context).primaryTextTheme.subtitle,
+                          textAlign: TextAlign.left,
+                        ),
+                        Text(
+                          value.amount.toString(),
+                          style: TextStyle(
+                            fontSize: 25,
+                          ),
+                          textAlign: TextAlign.left,
+                        ),
+                        Text(
+                          value.category,
+                          style: TextStyle(
+                            fontSize: 15,
+                          ),
+                          textAlign: TextAlign.left,
+                        ),
+                      ],
+                    ),
+                    Container(
+                        padding: EdgeInsets.only(right: 25),
+                        child: Transform.scale(
+                          scale: 1.6,
+                          child: Transform.rotate(
+                            angle: -10 * 3.14 / 180,
+                            child: Icon(
+                              icons[value.category],
+                              size: 45,
+                            ),
+                          ),
+                        )),
+                  ],
+                )),
+            color: Colors.grey[400],
+            elevation: 10.0,
+          ),
+        ),
+      );
+    }
+
+    return Expanded(
+      child: SizedBox(
+        height: 1.0,
+        child: Card(
+          child: Container(
+            color: Colors.grey[100],
+            padding: EdgeInsets.all(10),
+            child: ListView(
+              children: <Widget>[...expenses],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+```
