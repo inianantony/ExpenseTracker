@@ -53,10 +53,10 @@ class MyApp extends StatelessWidget {
   }
 }
 ``` 
-    - A class extends Stateless Widget
-        - Stateless widgets are that that dont hold any data
-        - It forces to implement build method
-    - The class returns MaterialApp widget
-        - MaterialApp is the starting point of your app, it tells Flutter that you are going to use Material components and follow material design in your app.
-        - set properties like the Theme and title
-        - most importantly, the home, which bootstraps our App
+- A class extends Stateless Widget
+    - Stateless widgets are that that dont hold any data
+    - It forces to implement build method
+- The class returns MaterialApp widget
+    - MaterialApp is the starting point of your app, it tells Flutter that you are going to use Material components and follow material design in your app.
+    - set properties like the Theme and title
+    - most importantly, the home, which bootstraps our App
