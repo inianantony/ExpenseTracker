@@ -171,9 +171,11 @@ RaisedButton(
 ),
 ``` 
 - Add this button inside Column widget
+- Add button height and width
 
-### Delete the default text widget for `You have pushed the button this many times:`
+### Delete the default text widget
 
+- Delete the text widget for `You have pushed the button this many times:`
 
 ### Add a Text widget next to button
 
@@ -246,9 +248,144 @@ DropdownButton<String>(
 ),
 ```
 
+### Add a textfield to capture the amount
+
+```dart
+final amountController = TextEditingController();
+```
+- Add TextEditingController to capture the value from TextField inside `_MyHomePageState` 
 
 
+```dart
+TextField(
+    decoration: new InputDecoration(
+        labelText: "Enter your expense amount"),
+    keyboardType: TextInputType.number, //
+    controller: amountController,
+),
+```
 
+### Add a button to save the value to DB
+
+```dart
+RaisedButton(
+    onPressed: () => {
+        setState(() {
+        
+        }),
+    },
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5)),
+    color: Colors.grey[100],
+    child: Text(
+        "Add Expense",
+        style: TextStyle(
+            color: Colors.black,
+            fontFamily: 'FonsecaRounded',
+            fontSize: 20),
+    ),
+),
+```
+
+### Add some style to the Add Expense section
+
+- Wrap the Column inside container
+```dart
+Container(
+    padding: EdgeInsets.all(10),
+    margin: EdgeInsets.all(10),
+```
+
+- Add material card to the section just above the Container
+```dart
+Card(
+```
+
+### Align left arrow date field and right arrow in one line
+
+- Add a Row widget to the 3 fields
+```dart
+Row(
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: <Widget>[
+
+    ],
+),
+```
+- move the Buttons and the date field inside the Row widget
+
+### Wrap the date field inside an Expanded widget
+
+```dart
+Expanded(
+    child: Container(
+        padding: EdgeInsets.only(top: 0),
+        child: Center(
+            child: Text("dd-MM-yyyy", textAlign: TextAlign.center,),
+        ),
+    ),
+),
+```
+
+### Extract the whole card to a new function to make the code a bit clean
+
+- Extract the card a new function `getAddExpenseSection`
+
+### Add listing section below
+
+- Wrap the add expense section with column
+- Add a container with height 30
+```dart
+Expanded(
+    child: SizedBox(
+        height: 1.0,
+        child: Card(
+        child: Container(
+            color: Colors.grey[100],
+            padding: EdgeInsets.all(10),
+            child: ListView(
+            children: <Widget>[
+                Container(
+                padding: EdgeInsets.only(top: 10),
+                child: Card(
+                    child: Container(
+                        padding: EdgeInsets.all(20),
+                        child: Row(
+                        mainAxisAlignment:MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                            Column(
+                            crossAxisAlignment:
+                                CrossAxisAlignment.start,
+                            children: <Widget>[
+                                Text("dd-MM-yyyy",style: Theme.of(context).primaryTextTheme.subtitle,textAlign: TextAlign.left,),
+                                Text("10",style: TextStyle(fontSize: 25,),textAlign: TextAlign.left,),
+                            ],
+                            ),
+                            Container(
+                                padding: EdgeInsets.only(right: 25),
+                                child: Transform.scale(
+                                scale: 1.6,
+                                child: Transform.rotate(
+                                    angle: -10 * 3.14 / 180,
+                                    child: Icon(
+                                    Icons.shopping_cart,
+                                    size: 45,
+                                    ),
+                                ),
+                                )),
+                        ],
+                        )),
+                    color: Colors.grey[400],
+                    elevation: 10.0,
+                ),
+                )
+            ],
+            ),
+        ),
+        ),
+    ),
+),
+```
 
 ```dart
 void main() => runApp(MyApp());
