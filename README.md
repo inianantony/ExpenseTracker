@@ -38,7 +38,7 @@
 
 - `void main() => runApp(MyApp());`
     - Entry point is the main method, and its call the runApp method and passes the class that holds the application
-- ``` dart
+```dart
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
