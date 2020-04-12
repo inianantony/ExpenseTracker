@@ -158,7 +158,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
 ## What we are going to Build
 
-![alt text](https://github.com/inianantony/expense_tracker/blob/master/readme_images/home.png) ![alt text](https://github.com/inianantony/expense_tracker/blob/master/readme_images/chart.png)
+Home Page             |  Chart Page
+:-------------------------:|:-------------------------:
+![alt text](https://github.com/inianantony/expense_tracker/blob/master/readme_images/home.png)   |  ![alt text](https://github.com/inianantony/expense_tracker/blob/master/readme_images/chart.png)
+
 
 ## Add New functionality
 
