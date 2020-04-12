@@ -148,6 +148,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
 1. Delete floatingActionButton, _incrementCounter, _counter, and Text widget showing the counter
 2. See the hot reload in action
+3. Change the title to Expense Tracker
+4. Wrap the AppBar title text with Center widget
 
 ### Add a new button for left arrow
 
@@ -263,6 +265,17 @@ TextField(
     keyboardType: TextInputType.number, //
     controller: amountController,
 ),
+```
+
+- Add dispose function to dispose of the controller when widget is offloaded
+
+```dart
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    amountController.dispose();
+    super.dispose();
+  }
 ```
 
 ### Add a button to save the value to DB
@@ -496,7 +509,7 @@ FocusScope.of(context).requestFocus(new FocusNode());
     var icons = new Map();
     icons.putIfAbsent('Grocery', () => Icons.shopping_cart);
     icons.putIfAbsent('Electronics', () => Icons.laptop);
-    icons.putIfAbsent('Fashion', () => Icons.all_inclusive);
+    icons.putIfAbsent('Fashion', () => Icons.shopping_basket);
     icons.putIfAbsent('Travel', () => Icons.beach_access);
     for (var value in expenseList) {
       expenses.add(
@@ -569,3 +582,111 @@ FocusScope.of(context).requestFocus(new FocusNode());
     );
   }
 ```
+
+### Add some more little styling to the home page 
+
+- On the outer Column widget add a Contanier and give some padding and color
+
+```dart
+Container(
+    padding: EdgeInsets.all(20),
+    color: Colors.grey[200],
+)
+```
+- Extract this to a function called `getHome`
+
+```dart
+Widget getHome(){
+    
+}
+```
+
+### Add page to add Chart
+
+- Update the index of selected tab
+
+```dart
+  void onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+```
+```dart
+onTap: onTabTapped, 
+```
+
+### Add a list to hold pages
+
+```dart
+List<Widget> _pages = [
+      getHome(),
+      getHome(),
+    ];
+```
+```dart
+_pages[_currentIndex]
+```
+
+### Add a chart page
+
+- Add a function to get data for Chart
+```dart
+  Map<String, double> getDataForChart() {
+    Map<String, double> expenseSummary = new Map();
+    expenseList.forEach((Expense expense) {
+      if (!expenseSummary.containsKey(expense.category))
+        expenseSummary.putIfAbsent(expense.category, () => expense.amount);
+      else
+        expenseSummary[expense.category] += expense.amount;
+    });
+    return expenseSummary;
+  }
+```
+
+- Add PieChart package
+```json
+pie_chart: ^3.1.1
+```
+
+- Add reference in the main.dart file
+
+```dart
+import 'package:pie_chart/pie_chart.dart';
+```
+
+- Add a function to get chart
+
+```dart
+  Widget getChart() {
+    List<Color> colorList = [
+        Colors.yellow,
+        Colors.green,
+        Colors.blue,
+        Colors.brown[100],
+    ];
+    return PieChart(
+      legendStyle: TextStyle(color: Colors.black),
+      dataMap: getDataForChart(),
+      animationDuration: Duration(milliseconds: 800),
+      chartLegendSpacing: 10.0,
+      chartRadius: MediaQuery.of(context).size.width / 2.7,
+      showChartValuesInPercentage: true,
+      showChartValues: true,
+      showChartValuesOutside: false,
+      chartValueBackgroundColor: Colors.grey[200],
+      colorList: colorList,
+      showLegends: true,
+      legendPosition: LegendPosition.right,
+      decimalPlaces: 1,
+      showChartValueLabel: true,
+      initialAngle: 0,
+      chartValueStyle: defaultChartValueStyle.copyWith(
+        color: Colors.blueGrey[900].withOpacity(0.9),
+      ),
+      chartType: ChartType.disc,
+    );
+  }
+```
+
+- Now make this function as the 2nd child page by adding to `_pages` list

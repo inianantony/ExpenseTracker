@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:pie_chart/pie_chart.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Expense Tracker'),
     );
   }
 }
@@ -33,21 +34,26 @@ class _MyHomePageState extends State<MyHomePage> {
   int _currentIndex = 0;
 
   @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    amountController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    List<Widget> _pages = [
+      getHome(),
+      getChart(),
+    ];
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Center(child: Text(widget.title)),
       ),
-      body: Column(
-        children: <Widget>[
-          getAddExpenseSection(),
-          Container(
-            height: 30,
-          ),
-          getListingSection(),
-        ],
-      ),
+      body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
+        onTap: onTabTapped,
         currentIndex: _currentIndex, // new
         items: [
           BottomNavigationBarItem(
@@ -63,12 +69,34 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  void onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
+  Widget getHome() {
+    return Container(
+      padding: EdgeInsets.all(20),
+      color: Colors.grey[200],
+      child: Column(
+        children: <Widget>[
+          getAddExpenseSection(),
+          Container(
+            height: 5,
+          ),
+          getListingSection(),
+        ],
+      ),
+    );
+  }
+
   Widget getListingSection() {
     var expenses = List<Widget>();
     var icons = new Map();
     icons.putIfAbsent('Grocery', () => Icons.shopping_cart);
     icons.putIfAbsent('Electronics', () => Icons.laptop);
-    icons.putIfAbsent('Fashion', () => Icons.all_inclusive);
+    icons.putIfAbsent('Fashion', () => Icons.shopping_basket);
     icons.putIfAbsent('Travel', () => Icons.beach_access);
     for (var value in expenseList) {
       expenses.add(
@@ -268,6 +296,47 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
+    );
+  }
+
+  Map<String, double> getDataForChart() {
+    Map<String, double> expenseSummary = new Map();
+    expenseList.forEach((Expense expense) {
+      if (!expenseSummary.containsKey(expense.category))
+        expenseSummary.putIfAbsent(expense.category, () => expense.amount);
+      else
+        expenseSummary[expense.category] += expense.amount;
+    });
+    return expenseSummary;
+  }
+
+  Widget getChart() {
+    List<Color> colorList = [
+      Colors.yellow,
+      Colors.green,
+      Colors.blue,
+      Colors.brown[100],
+    ];
+    return PieChart(
+      legendStyle: TextStyle(color: Colors.black),
+      dataMap: getDataForChart(),
+      animationDuration: Duration(milliseconds: 800),
+      chartLegendSpacing: 10.0,
+      chartRadius: MediaQuery.of(context).size.width / 2.7,
+      showChartValuesInPercentage: true,
+      showChartValues: true,
+      showChartValuesOutside: false,
+      chartValueBackgroundColor: Colors.grey[200],
+      colorList: colorList,
+      showLegends: true,
+      legendPosition: LegendPosition.right,
+      decimalPlaces: 1,
+      showChartValueLabel: true,
+      initialAngle: 0,
+      chartValueStyle: defaultChartValueStyle.copyWith(
+        color: Colors.blueGrey[900].withOpacity(0.9),
+      ),
+      chartType: ChartType.disc,
     );
   }
 }
