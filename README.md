@@ -197,6 +197,12 @@ RaisedButton(
 ``` 
 - Add this button inside Column widget
 - Add button height and width
+```dart
+ButtonTheme(
+    minWidth: 25.0,
+    height: 30.0,
+)
+```
 
 ### Delete the default text widget
 
@@ -215,21 +221,25 @@ Text(
 ### Add a new button for right arrow
 
 ```dart
-RaisedButton(
-    onPressed: () => {
-        setState(() {
-        
-        }),
-    },
-    shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(5)),
-    color: Colors.grey[100],
-    child: Text(
-        ">",
-        style: TextStyle(
-            color: Colors.black,
-            fontFamily: 'FonsecaRounded',
-            fontSize: 20),
+ButtonTheme(
+    minWidth: 25.0,
+    height: 30.0,
+    child: RaisedButton(
+        onPressed: () => {
+            setState(() {
+            
+            }),
+        },
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5)),
+        color: Colors.grey[100],
+        child: Text(
+            ">",
+            style: TextStyle(
+                color: Colors.black,
+                fontFamily: 'FonsecaRounded',
+                fontSize: 20),
+        ),
     ),
 ),
 ``` 
@@ -304,21 +314,25 @@ TextField(
 ### Add a button to save the value to DB
 
 ```dart
-RaisedButton(
-    onPressed: () => {
-        setState(() {
-        
-        }),
-    },
-    shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(5)),
-    color: Colors.grey[100],
-    child: Text(
-        "Add Expense",
-        style: TextStyle(
-            color: Colors.black,
-            fontFamily: 'FonsecaRounded',
-            fontSize: 20),
+ButtonTheme(
+    minWidth: 25.0,
+    height: 30.0,
+    child: RaisedButton(
+        onPressed: () => {
+            setState(() {
+            
+            }),
+        },
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5)),
+        color: Colors.grey[100],
+        child: Text(
+            "Add Expense",
+            style: TextStyle(
+                color: Colors.black,
+                fontFamily: 'FonsecaRounded',
+                fontSize: 20),
+        ),
     ),
 ),
 ```
