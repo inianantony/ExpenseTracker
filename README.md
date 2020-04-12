@@ -387,10 +387,103 @@ Expanded(
 ),
 ```
 
+### Extract the list area to new function
+
+- Extract to the new function `getListingSection`
+
+### Add bottom navigation bar
+
+- Add a property to hold the page index
 ```dart
-void main() => runApp(MyApp());
-``` 
+int _currentIndex = 0;
+```
+
+- Add bottomNavigationBar
+```dart
+bottomNavigationBar: BottomNavigationBar(
+    currentIndex: _currentIndex, // new
+    items: [
+        BottomNavigationBarItem(
+        icon: new Icon(Icons.home),
+        title: new Text('Home'),
+        ),
+        BottomNavigationBarItem(
+        icon: new Icon(Icons.pie_chart),
+        title: new Text('Chart'),
+        )
+    ],
+),
+```
+
+
+### Time to add new functionality
+
+#### Add Expense -> Date
+
+- Add internationalization package, take care of the tabing and spacing
+```json
+intl: ^0.15.8
+```
+- Reference the package in the main.dart
+```dart
+import 'package:intl/intl.dart';
+```
+- Add a date variable and show it in UI
+```dart
+DateTime date = new DateTime.now();
+```
+- Change the `dd-MM-yyyy` to
+```dart
+DateFormat("dd-MM-yyyy").format(date)
+```
+- Add functionality to the left and right arrow buttons inside `setState`
 
 ```dart
-void main() => runApp(MyApp());
-``` 
+date = date.subtract(new Duration(days: 1));
+
+date = date.add(new Duration(days: 1));
+```
+
+#### Add Expense -> Capture shopping category data
+- Set the state in dropdown change
+```dart
+category = newValue;
+```
+
+#### Add Expense -> Saving the data
+
+- Add a Class to represent the Expense
+```dart
+class Expense {
+  String category;
+  DateTime date;
+  double amount;
+
+  Expense({
+    this.category,
+    this.date,
+    this.amount,
+  });
+}
+```
+- Add a list of Expense to hold each expense
+```dart
+List<Expense> expenseList = [];
+```
+
+- Clicking the Add button construct an Expense object and add to list
+```dart
+expenseList.add(Expense(
+amount: double.parse(amountController.text),
+category: category,
+date: date));
+```
+
+- After saving the data claer the state and change the focus 
+```dart
+category = "Grocery";
+date = DateTime.now();
+amountController.text = "";
+FocusScope.of(context).requestFocus(new FocusNode());
+```
+
