@@ -662,8 +662,9 @@ List<Widget> _pages = [
       getHome(),
     ];
 ```
+- Replace the body with the page from the _pages list
 ```dart
-_pages[_currentIndex]
+body: _pages[_currentIndex]
 ```
 
 ### Add a chart page
