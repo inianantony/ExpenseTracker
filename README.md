@@ -612,7 +612,7 @@ FocusScope.of(context).requestFocus(new FocusNode());
             color: Colors.grey[100],
             padding: EdgeInsets.all(10),
             child: ListView(
-              children: <Widget>[...expenses],
+              children: expenses,
             ),
           ),
         ),
