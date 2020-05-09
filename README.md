@@ -743,6 +743,11 @@ ___
 ### Unit Test
 
 - The `test` package provides the core framework for writing unit tests
+- `Mockito` could be used to mock the dependencies
+
+#### Issue
+
+- We can add a new expense with invalid amount
 
 #### Add logic to validate the amount before saving
 
@@ -806,5 +811,50 @@ class AmountValidator {
   }
 }
 ```
+
+- Now we can use this validation logic in Add Expense
+- import `import 'amount_validator.dart';` and then add the below code to button
+``` dart
+onPressed: () => {
+  setState(() {
+    if (!AmountValidator().isValidAmount(amountController.text)) {
+      
+    } else {
+      expenseList.add(Expense(
+          amount: double.parse(amountController.text),
+          category: category,
+          date: date));
+      category = "Grocery";
+      date = DateTime.now();
+      amountController.text = "";
+      FocusScope.of(context).requestFocus(new FocusNode());
+    }
+  }),
+},
+```
+- Show an alert to user
+``` dart
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Attention'),
+          content: Text('Please corrent the invalid amount'),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+```
+- call `_showMyDialog()` when validation fails
 ___
 

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pie_chart/pie_chart.dart';
 
+import 'amount_validator.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -169,6 +171,27 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Attention'),
+          content: Text('Please corrent the invalid amount'),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   Widget getAddExpenseSection() {
     return Card(
       child: Container(
@@ -271,14 +294,19 @@ class _MyHomePageState extends State<MyHomePage> {
               child: RaisedButton(
                 onPressed: () => {
                   setState(() {
-                    expenseList.add(Expense(
-                        amount: double.parse(amountController.text),
-                        category: category,
-                        date: date));
-                    category = "Grocery";
-                    date = DateTime.now();
-                    amountController.text = "";
-                    FocusScope.of(context).requestFocus(new FocusNode());
+                    if (!AmountValidator()
+                        .isValidAmount(amountController.text)) {
+                      _showMyDialog();
+                    } else {
+                      expenseList.add(Expense(
+                          amount: double.parse(amountController.text),
+                          category: category,
+                          date: date));
+                      category = "Grocery";
+                      date = DateTime.now();
+                      amountController.text = "";
+                      FocusScope.of(context).requestFocus(new FocusNode());
+                    }
                   }),
                 },
                 shape: RoundedRectangleBorder(
