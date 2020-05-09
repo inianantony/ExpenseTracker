@@ -786,9 +786,6 @@ void main() {
     test('isNumeric should return false when 0 is passed', () {
       expect(AmountValidator().isValidAmount("0"), false);
     });
-    test('isNumeric should return false when 0 is passed', () {
-      expect(AmountValidator().isValidAmount("0"), false);
-    });
     test('isNumeric should return false when -ve is passed', () {
       expect(AmountValidator().isValidAmount("-1"), false);
     });
