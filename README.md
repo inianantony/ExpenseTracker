@@ -730,11 +730,81 @@ import 'package:pie_chart/pie_chart.dart';
 
 - Now make this function as the 2nd child page by adding to `_pages` list
 
-# Relation to Introduction​
+# Testing
 
-- Dart Language​
-- Widgets​
-- WidgetTree​
-- VisualStudio Code​
-- AVD​
-- Hot Reload
+## 3 types of Testing
+
+- Unit
+- Widget
+- Integration
+
+___
+
+### Unit Test
+
+- The `test` package provides the core framework for writing unit tests
+
+#### Add logic to validate the amount before saving
+
+- create a class `amount_validator.dart` under the lib folder
+- Add a function `isValidAmount` 
+``` dart
+class AmountValidator { bool isValidAmount(String s) {} }
+```
+- Add the test dependency in ymal file
+``` dart
+test: ^1.14.3
+```
+- create a subfolder `unit` under the test
+- Add `amount_validator_test.dart` file
+- import the packages
+``` dart
+import 'package:expense_tracker/amount_validator.dart';
+import 'package:test/test.dart';
+```
+- Add the test code
+``` dart
+void main() {
+  group('NumberValidatorTests', () {
+    test('isNumeric should return false when ' ' is passed', () {
+      expect(AmountValidator().isValidAmount(""), false);
+    });
+    test('isNumeric should return false when any string is passed', () {
+      expect(AmountValidator().isValidAmount("test"), false);
+    });
+    test('isNumeric should return true when integer is passed', () {
+      expect(AmountValidator().isValidAmount("10"), true);
+    });
+    test('isNumeric should return true when decimal is passed', () {
+      expect(AmountValidator().isValidAmount("10.50"), true);
+    });
+    test('isNumeric should return false when 0 is passed', () {
+      expect(AmountValidator().isValidAmount("0"), false);
+    });
+    test('isNumeric should return false when 0 is passed', () {
+      expect(AmountValidator().isValidAmount("0"), false);
+    });
+    test('isNumeric should return false when -ve is passed', () {
+      expect(AmountValidator().isValidAmount("-1"), false);
+    });
+    test('isNumeric should return false when -ve 0 is passed', () {
+      expect(AmountValidator().isValidAmount("-0"), false);
+    });
+  });
+}
+```
+
+``` dart
+class AmountValidator {
+  bool isValidAmount(String s) {
+    if (s == null || double.tryParse(s) == null) {
+      return false;
+    }
+    var value = double.tryParse(s);
+    if (value <= 0) return false;
+    return true;
+  }
+}
+```
+___
+
