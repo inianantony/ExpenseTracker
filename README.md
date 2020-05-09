@@ -881,7 +881,7 @@ key: Key("amountField"),
 
 key: Key('addExpenseButton'),
 ```
-![alt text](https://github.com/inianantony/expense_tracker/blob/master/readme_images/add_key_in_expense_list.png)
+![alt text](https://github.com/inianantony/expense_tracker/blob/master/readme_images/add_key_in_expense_list.PNG)
 - Add a sub folder `widget` under test
 - create a new file `add_expene_test.dart`
 - import the packages
