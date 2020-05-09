@@ -857,7 +857,7 @@ ___
 
 ### Widget Test
 
-- The flutter_test package provides the following tools for testing widgets:
+- The `flutter_test` package provides the following tools for testing widgets:
   * The `WidgetTester` allows building and interacting with widgets in a test environment.
   * The `testWidgets()` function automatically creates a new `WidgetTester` for each test case, and is used in place of the normal test() function.
   * The `Finder` classes allow searching for widgets in the test environment.
@@ -914,20 +914,115 @@ void main() {
   });
 }
 ```
-
-
 ___
 
 ### Integration Test
 
-- The flutter_test package provides the following tools for testing widgets:
-  * The `WidgetTester` allows building and interacting with widgets in a test environment.
-  * The `testWidgets()` function automatically creates a new `WidgetTester` for each test case, and is used in place of the normal test() function.
-  * The `Finder` classes allow searching for widgets in the test environment.
-  * Widget-specific `Matcher` constants help verify whether a Finder locates a widget or multiple widgets in the test environment.
+- integration tests, test how individual pieces work together as a whole, or capture the performance of an application running on a real device or emulator
+- `flutter_driver` package provides tools to create instrumented apps and drive those apps from a test suite
+- Steps
+  * deploy an instrumented application to a real device or emulator
+  * “drive” the application from a separate test suite & checking to make sure everything is correct along the way.
+- Unlike unit and widget tests, integration test suites do not run in the same process as the app being tested
+- One test file contains an “instrumented” version of the app. The instrumentation allows you to “drive” the app and record performance profiles from a test suite
+- The second file contains the test suite, which drives the app and verifies that it works as expected
 
 #### Adding the integration test
 
+- Add the `flutter_driver` dependency
+``` dart
+  flutter_driver:
+    sdk: flutter
+```
+- By convention, the integration test run under the directory is named `test_driver` , so lets create it
+- create a file `app.dart` to instrument the app
+- Add the below code to it
+``` dart
+import 'package:flutter_driver/driver_extension.dart';
+import 'package:expense_tracker/main.dart' as app;
+
+void main() {
+  // This line enables the extension.
+  enableFlutterDriverExtension();
+
+  // Call the `main()` function of the app, or call `runApp` with
+  // any widget you are interested in testing.
+  app.main();
+}
+```
+- Add the next file `app_test.dart` to drive the testing
+- import the packages and the boilerplate code
+``` dart
+import 'package:flutter_driver/flutter_driver.dart';
+import 'package:test/test.dart';
+
+void main() {
+  group('Expense Tracker App', () {
+    FlutterDriver driver;
+
+    // Connect to the Flutter driver before running any tests.
+    setUpAll(() async {
+      driver = await FlutterDriver.connect();
+    });
+
+    // Close the connection to the driver after the tests have completed.
+    tearDownAll(() async {
+      if (driver != null) {
+        driver.close();
+      }
+    });
+    
+  });
+}
+```
+- Add the first scenario to verify the list is empty in first load
+``` dart
+final amountTextField = find.byValueKey('amountField');
+final buttonFinder = find.byValueKey('addExpenseButton');
+final firstEntryInList = find.byValueKey('item_1');
+```
+``` dart
+    isPresent(SerializableFinder byValueKey, FlutterDriver driver,
+        {Duration timeout = const Duration(seconds: 1)}) async {
+      try {
+        await driver.waitFor(byValueKey, timeout: timeout);
+        return true;
+      } catch (exception) {
+        return false;
+      }
+    }
+
+    test('List is empty', () async {
+      // Use the `driver.getText` method to verify the counter starts at 0.
+      final isExists = await isPresent(firstEntryInList, driver);
+      if (isExists) {
+        print('widget is present');
+      } else {
+        print('widget is not present');
+      }
+      expect(isExists, false);
+    });
+```
+- Run the command `flutter drive --target=test_driver/app.dart` in terminal
+- Add the scenario to verify if expense can be added
+``` dart
+    test('Add new expense', () async {
+      // First, tap the button.
+      await driver.tap(amountTextField); // acquire focus
+      await driver.enterText('10'); // enter text
+
+      await driver.tap(buttonFinder);
+
+      // Then, verify the counter text is incremented by 1.
+      final isExists = await isPresent(firstEntryInList, driver);
+      if (isExists) {
+        print('widget is present');
+      } else {
+        print('widget is not present');
+      }
+      expect(isExists, true);
+    });
+```
 
 ___
 
