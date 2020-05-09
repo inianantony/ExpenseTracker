@@ -161,7 +161,7 @@ class _MyHomePageState extends State<MyHomePage> {
             color: Colors.grey[100],
             padding: EdgeInsets.all(10),
             child: ListView(
-              children: <Widget>[...expenses],
+              children: expenses,
             ),
           ),
         ),
