@@ -100,12 +100,15 @@ class _MyHomePageState extends State<MyHomePage> {
     icons.putIfAbsent('Electronics', () => Icons.laptop);
     icons.putIfAbsent('Fashion', () => Icons.shopping_basket);
     icons.putIfAbsent('Travel', () => Icons.beach_access);
+    num i = 0;
     for (var value in expenseList) {
+      i++;
       expenses.add(
         Container(
           padding: EdgeInsets.only(top: 10),
           child: Card(
             child: Container(
+              key: Key("item_$i"),
                 padding: EdgeInsets.all(20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -283,6 +286,7 @@ class _MyHomePageState extends State<MyHomePage> {
               }).toList(),
             ),
             TextField(
+              key: Key("amountField"),
               decoration:
                   new InputDecoration(labelText: "Enter your expense amount"),
               keyboardType: TextInputType.number, //
@@ -292,6 +296,7 @@ class _MyHomePageState extends State<MyHomePage> {
               minWidth: 25.0,
               height: 30.0,
               child: RaisedButton(
+                key: Key('addExpenseButton'),
                 onPressed: () => {
                   setState(() {
                     if (!AmountValidator()

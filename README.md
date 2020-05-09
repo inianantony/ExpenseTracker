@@ -855,3 +855,79 @@ onPressed: () => {
 - call `_showMyDialog()` when validation fails
 ___
 
+### Widget Test
+
+- The flutter_test package provides the following tools for testing widgets:
+  * The `WidgetTester` allows building and interacting with widgets in a test environment.
+  * The `testWidgets()` function automatically creates a new `WidgetTester` for each test case, and is used in place of the normal test() function.
+  * The `Finder` classes allow searching for widgets in the test environment.
+  * Widget-specific `Matcher` constants help verify whether a Finder locates a widget or multiple widgets in the test environment.
+
+#### Adding the widget test
+
+-Add the `flutter_test` dependency
+``` dart
+  flutter_test:
+    sdk: flutter
+```
+- We will be finding the widgets by Key, so we can add the keys first
+  * In the list showing the expense, for the container just above row widget
+  * In the amount field
+  * In the add expense button
+``` dart
+key: Key("item_$i"),
+
+key: Key("amountField"),
+
+key: Key('addExpenseButton'),
+```
+![alt text](https://github.com/inianantony/expense_tracker/blob/master/readme_images/add_key_in_expense_list.png)
+- Add a sub folder `widget` under test
+- create a new file `add_expene_test.dart`
+- import the packages
+``` dart
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:expense_tracker/main.dart';
+```
+- add the test using the `main` method
+``` dart
+void main() {
+  testWidgets('Can Add a New Expense', (WidgetTester tester) async {
+
+    await tester.pumpWidget(MyApp());
+
+    final amountTextField = find.byKey(Key('amountField'));
+    final firstEntryInList = find.byKey(Key("item_1"));
+    final addExpenseButton = find.byKey(Key('addExpenseButton'));
+
+    expect(firstEntryInList, findsNothing);
+
+    await tester.enterText(amountTextField, '10');
+
+    await tester.tap(addExpenseButton);
+
+    await tester.pump();
+
+    expect(find.byKey(Key("item_1")), findsOneWidget);
+
+  });
+}
+```
+
+
+___
+
+### Integration Test
+
+- The flutter_test package provides the following tools for testing widgets:
+  * The `WidgetTester` allows building and interacting with widgets in a test environment.
+  * The `testWidgets()` function automatically creates a new `WidgetTester` for each test case, and is used in place of the normal test() function.
+  * The `Finder` classes allow searching for widgets in the test environment.
+  * Widget-specific `Matcher` constants help verify whether a Finder locates a widget or multiple widgets in the test environment.
+
+#### Adding the integration test
+
+
+___
+
