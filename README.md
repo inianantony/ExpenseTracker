@@ -473,7 +473,7 @@ bottomNavigationBar: BottomNavigationBar(
 
 - Add internationalization package, take care of the tabing and spacing
 ```json
-intl: ^0.15.8
+intl: ^0.16.1
 ```
 - Reference the package in the main.dart
 ```dart
